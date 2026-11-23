@@ -2,8 +2,7 @@ package gr.aueb.elevatorbuddies.centralsystem;
 
 public class CentralSystemMain {
     public static void main(String[] args) {
-        // 1. Ορισμός προεπιλεγμένων τιμών ή ανάγνωση από τα arguments
-        // Σύμφωνα με την ομάδα, έχουμε 4 ανελκυστήρες και ας υποθέσουμε 10 ορόφους (ή όσο ορίζει το κτίριο)
+        // 1. Set default values or read from arguments
         int numberOfElevators = 4;
         int totalFloors = 10;
         
@@ -12,29 +11,27 @@ public class CentralSystemMain {
                 numberOfElevators = Integer.parseInt(args[0]);
                 totalFloors = Inetger.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                System.err.println("Σφάλμα: Οι παράμετροι πρέπει να είναι ακέραιοι αριθμοί.");
+                System.err.println("Error: Parameters must be integer numbers.");
                 return;
             }
         }
-        // 2. Έλεγχος ορίων σύμφωνα με την εκφώνηση
-        // Ανελκυστήρας: 2 έως 20, Όροφοι: 3 έως 200
-        if (NumberOfElevators < 2 || numberΟfElevators > 20) {
-            System.err.println("Σφάλμα: Ο αριθμός των ανελκυστήρων πρέπει να είναι 2 και 20.");
+        // 2. Validate bounds according to specifications
+        if (numberOfElevators < 2 || numberOfElevators > 20) {
+            System.err.println("Error: The number of elevators must be between 2 and 20.");
             return;
         }
         if (totalFloors < 3 || totalFloors > 200) {
-            System.err.println("Σφάλμα: Ο συνολικός αριθμός ορόφων πρέπει να είναι μεταξύ 3 και 200.");
+            System.err.println("Error: The total number of floors must be between 3 and 200.");
             return;
         }
-        System.out.println("Εκκίνηση Κεντρικού Συστήματος με " + numberOfElevators + " ανελκυστήρες και " + totalFloors + " ορόφους...");
-        
-        // 3. Αρχικοποίηση βασικών κλάσεων του Κνετρικού Συστήματος
+        System.out.println("Starting Central System with " + numberOfElevators + " elevators and " + totalFloors + "floors...");
+        // 3. Initialize core Central System classes
         ElevatorRegistry registry = new ElevatorRegistry(numberOfElevators);
         ElevatorAssigner assigner = new ElevatorAssigner(registry);
         ElevatorClient client = new ElevatorClient();
         RequestController controller = new RequestController(assigner, client, totalFloors);
 
-        // 4. Εκκίνηση του REST server / μηχανισμού υποδοχής αιτημάτων
+        // 4. Start the REST server / request handling mechanism
         // controller.startServer();
         System.out.println("Το Κνετρικό Σύστημα ξεκίνησε επιτυχώς και αναμένει αιτήματα.");
     }
