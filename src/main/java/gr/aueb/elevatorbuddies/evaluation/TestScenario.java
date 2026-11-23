@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TestSenario {
+public class TestScenario {
 
     public static class Request {
         private final int originFloor;
@@ -30,3 +30,5 @@ public class TestSenario {
     }
 
     private final String name;
+    private final String description;
+    private final List<Request> requests;
