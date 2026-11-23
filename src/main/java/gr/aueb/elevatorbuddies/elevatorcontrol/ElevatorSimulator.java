@@ -1,7 +1,7 @@
 package gr.aueb.elevatorbuddies.elevatorcontrol;
 //Εισαγωγή των nested enums από την κλάση Elevator
 import gr.aueb.elevatorbuddies.elevatorcontrol.Elevator.Direction;
-import gr.aueb.elevatorbuddies.elevatorcontrol.Elevator.ElevatorStatus;
+import gr.aueb.elevatorbuddies.elevatorcontrol.Elevator.ElevatorState;
 //Προσομοιώνει την λειτουργία του ανελκυστήρα σε ξεχωριστό thread
 //συνεργαζόμενη με τις κλάσεις Elevator και StopManager
 public class ElevatorSimulator implements Runnable {
@@ -23,7 +23,7 @@ public class ElevatorSimulator implements Runnable {
         while (running) {
             try {
                 //Έλεγχος αν ο ανελκυστήρας είναι εκτός λειτουργίας (OUT_OF_SERVICE)
-                if (elevator.getStatus() == ElevatorStatus.OUT_OF_SERVICE) {
+                if (elevator.getState() == ElevatorState.OUT_OF_SERVICE) {
                     elevator.setDirection(Direction.NONE);
                     Thread.sleep(200);
                     continue;
@@ -31,7 +31,7 @@ public class ElevatorSimulator implements Runnable {
                 //Αν δεν υπάρχουν εκκρεμείς στάσεις, μένει σε αναμονή (IDLE)
                 if (!stopManager.hasPendingStops()) {
                     elevator.setDirection(Direction.NONE);
-                    elevator.setStatus(ElevatorStatus.IDLE);
+                    elevator.setState(ElevatorState.IDLE);
                     Thread.sleep(200);
                     continue;
                 }
@@ -42,16 +42,16 @@ public class ElevatorSimulator implements Runnable {
                 int current = elevator.getCurrentFloor();
                 if (current < targetFloor) {
                     elevator.setDirection(Direction.UP);
-                    elevator.setStatus(ElevatorStatus.MOVING);
+                    elevator.setState(ElevatorState.MOVING);
                     Thread.sleep(floorTravelTimeMs);
                     elevator.setCurrentFloor(current + 1);
                 } else if (current > targetFloor) {
                     elevator.setDirection(Direction.DOWN);
-                    elevator.setStatus(ElevatorStatus.MOVING);
+                    elevator.setState(ElevatorState.MOVING);
                     Thread.sleep(floorTravelTimeMs);
                     elevator.setCurrentFloor(current - 1);
                 } else {
-                    elevator.setStatus(ElevatorStatus.STOPPED);
+                    elevator.setState(ElevatorState.STOPPED);
                     stopManager.completeStop(targetFloor);
                     Thread.sleep(doorTimeMs);
                 }
