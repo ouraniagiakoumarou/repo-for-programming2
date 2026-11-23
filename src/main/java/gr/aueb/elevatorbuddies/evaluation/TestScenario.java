@@ -6,5 +6,5 @@ import java.util.List;
 
 public class TestSenario {
 
-    public static class Request {}
-}
+    public static class Request {
+        private final int originFloor;
