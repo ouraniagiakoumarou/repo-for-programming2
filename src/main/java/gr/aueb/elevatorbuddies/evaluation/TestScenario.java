@@ -12,5 +12,21 @@ public class TestSenario {
         private final long delayMs;
 
         public Request(int originFloor, int destinationFloor, long delayMs) {
-            
+            this.originFloor = originFloor;
+            this.destinationFloor = destinationFloor;
+            this.delayMs = Math.max(0, delayMs);
         }
+
+        public int getOriginFloor() {
+            return originFloor;
+        }
+
+        public int getDestinationFloor() {
+            return destinationFloor;
+        }
+        public long getDelayMs() {
+            return delayMs;
+        }
+    }
+
+    private final String name;
