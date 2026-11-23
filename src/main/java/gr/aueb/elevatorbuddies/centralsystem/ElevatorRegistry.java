@@ -1,4 +1,5 @@
 package gr.aueb.elevatorbuddies.centralsystem;
+import gr.aueb.elevatorbuddies.elevatorcontrol.Elevator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
