@@ -3,9 +3,10 @@ package gr.aueb.elevatorbuddies.userinterface;
 public class UserInterfaceMain {
 
     public static void main(String[] args) {
+        CentralSystemClient client = new CentralSystemClient();
     // 1. Έλεγχος αν δόθηκε η παράμετρος από τη γραμμή εντολών 
     if (args.length == 0) {
-        System.err.println("Σφάλμα: Δεν δόθηκε όροφος εκκίνησης.")
+        System.err.println("Σφάλμα: Δεν δόθηκε όροφος εκκίνησης.");
         System.err.println("Χρήση: java userinterface.UserInterfaceMain <starting_floor>");
         return;
     }
@@ -27,8 +28,12 @@ public class UserInterfaceMain {
         return;
     }
     // 4. Αρχικοποίηση της ConsoleUI περνώντας τον έγκυρο όροφο εκκίνησης
-    ConsoleUI consoleUI = new ConsoleUI(startFloor);
-    ConsoleUI.start(); // Ή όποια μέθοδος εκκίνησης διαθέτει η ConsoleUI σας
+    ConsoleUI consoleUI = new ConsoleUI(
+        client,
+        startFloor,
+        minFloor,
+        maxFloor);
+    consoleUI.start(); // Ή όποια μέθοδος εκκίνησης διαθέτει η ConsoleUI σας
     }
 }
 
