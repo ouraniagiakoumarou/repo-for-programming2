@@ -38,23 +38,23 @@ public class ConsoleUI {
                 handleElevatorRequest();
             } else if (choice == 0) {
                 running = false;
-                System.out.println("Εξοδος απο το προγραμμα.");
+                System.out.println("Exiting application.");
             } else {
-                System.out.println("Μη εγκυρη επιλογη. Δοκιμαστε ξανα.");
+                System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
 private void handleElevatorRequest() {
     if (centralSystemClient == null) {
-        System.out.println("Σφαλμα: δεν υπαρχει συνδεση με τον CentralSystemClient.");
+        System.out.println("Error: CentralSystemClient is not connected.");
         return;
     }
 
-    int destinationFloor = readFloor("Δωστε οροφο προορισμου (" + minFloor + " εως " + maxFloor + "): ");
+    int destinationFloor = readFloor("Enter destination floor (" + minFloor + " to " + maxFloor + "): ");
     
     if (destinationFloor == installationFloor) {
-        System.out.println("Βρισκεστε ηδη σε αυτο τον οροφο (" + installationFloor + ").");
+        System.out.println("You are already on this floor (" + installationFloor + ").");
         return;
     }
 
@@ -62,7 +62,7 @@ private void handleElevatorRequest() {
         String elevatorId = centralSystemClient.requestElevator(installationFloor, destinationFloor);
 
         if (elevatorId != null && !elevatorId.isBlank()) {
-            System.out.println("Ανελκυστηρας που ανατεθηκε: " + elevatorId);
+            System.out.println("Assigned elevator: " + elevatorId);
         } else {
             System.out.println("No elevator could be assigned.");
         }
