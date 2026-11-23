@@ -70,7 +70,7 @@ public class TestScenario {
             Request r = requests.get(i);
             System.out.println(" " + (i + 1) + ". " + r.getOriginFloor()
                 + " -> " + r.getDestinationFloor()
-                
-            
-
+                + " (delay: " + r.getDelayMs() + " ms)");
         }
+     }
+}
