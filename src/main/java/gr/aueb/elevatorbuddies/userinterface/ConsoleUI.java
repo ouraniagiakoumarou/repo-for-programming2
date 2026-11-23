@@ -59,7 +59,7 @@ private void handleElevatorRequest() {
     }
 
     try {
-        String elevatorId = centralSystemClient.requestElevator(installattionFloor, destinationFloor);
+        String elevatorId = centralSystemClient.requestElevator(installationFloor, destinationFloor);
 
         if (elevatorId != null && !elevatorId.isBlank()) {
             System.out.println("Ανελκυστηρας που ανατεθηκε: " + elevatorId);
@@ -67,7 +67,7 @@ private void handleElevatorRequest() {
             System.out.println("Δεν εγινε αναθεση αναλκυστηρα.");
         }
     } catch (Exception e) {
-        System.out.println("Παρουσιαστηκε σφαλμα κατα την επικοινωνια με το συστημα: " + e.getMessage());
+        System.out.println("Error while communicating with the system: " + e.getMessage());
     }
 }
 
