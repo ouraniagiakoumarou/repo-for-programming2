@@ -64,5 +64,8 @@ public class TestScenario {
 
      public void printSummary() {
         System.out.println("Scenario: " + name);
-     }
-     }
+        System.out.println("Description: " + description);
+        System.out.println("Total requests: " + requests.size());
+        for (int i = 0; i < requests.size(); i++) {
+            
+        }
