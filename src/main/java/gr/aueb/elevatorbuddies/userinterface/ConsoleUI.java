@@ -28,8 +28,8 @@ public class ConsoleUI {
         System.out.println("Οροφοσ εγκαταστασης¨: " + installationFloor);
 
         while (running) {
-            System.out.println("\n1. Δηλωση οροφου προορισμου");
-            System.out.println("0. Εξοδος");
+            System.out.println("\n1. Select destination floor");
+            System.out.println("0. Exit");
             System.out.print("Choice: ");
 
             int choice = readInt();
