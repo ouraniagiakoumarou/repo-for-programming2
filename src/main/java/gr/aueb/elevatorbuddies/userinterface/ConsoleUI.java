@@ -80,7 +80,7 @@ private int readFloor(String prompt) {
             return floor;
         }
 
-        System.out.println("Ο οροφος πρεπει να ειναι μεταξυ " + minFloor + " και " + maxFloor + ".");
+        System.out.println("Floor must be between " + minFloor + " and " + maxFloor + ".");
     }
 }
 
@@ -91,7 +91,7 @@ private int readInt() {
         try; {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Δωστε εγκυρο ακεραιο αριθμο: ");
+            System.out.println("Please enter a valid integer:  ");
         }
     }
 }
