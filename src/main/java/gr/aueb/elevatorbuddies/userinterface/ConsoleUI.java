@@ -30,7 +30,7 @@ public class ConsoleUI {
         while (running) {
             System.out.println("\n1. Δηλωση οροφου προορισμου");
             System.out.println("0. Εξοδος");
-            System.out.print("Επιλογη: ");
+            System.out.print("Choice: ");
 
             int choice = readInt();
 
