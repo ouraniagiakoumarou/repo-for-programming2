@@ -40,6 +40,12 @@ public class TestScenario {
     }
 
     public void addRequest(int originFloor, int destinationFloor, long delayMs) {
+        if (originFloor == destinationFloor) {
+            return;
+        }
+        requests.add(new Request(originFloor, destinationFloor, delayNs));
         
+        }
+
     }
     }
