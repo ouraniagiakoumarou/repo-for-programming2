@@ -53,3 +53,7 @@ public class TestScenario {
     public String getDescription() {
         return description;
     }
+
+    public List<Request> getRequests() {
+        return Collections.unmodifiableList(requests);
+    }
