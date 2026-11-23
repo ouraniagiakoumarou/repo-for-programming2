@@ -69,6 +69,8 @@ public class TestScenario {
         for (int i = 0; i < requests.size(); i++) {
             Request r = requests.get(i);
             System.out.println(" " + (i + 1) + ". " + r.getOriginFloor()
-            )
+                + " -> " + r.getDestinationFloor()
+                
+            
 
         }
