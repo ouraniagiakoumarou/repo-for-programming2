@@ -25,7 +25,7 @@ public class ConsoleUI {
         boolean running = true;
 
         System.out.println("=== Smart Elevator System - User Interface ===");
-        System.out.println("Οροφοσ εγκαταστασης¨: " + installationFloor);
+        System.out.println("Installation floor: " + installationFloor);
 
         while (running) {
             System.out.println("\n1. Select destination floor");
