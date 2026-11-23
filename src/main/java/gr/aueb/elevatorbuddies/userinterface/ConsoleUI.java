@@ -64,7 +64,7 @@ private void handleElevatorRequest() {
         if (elevatorId != null && !elevatorId.isBlank()) {
             System.out.println("Ανελκυστηρας που ανατεθηκε: " + elevatorId);
         } else {
-            System.out.println("Δεν εγινε αναθεση αναλκυστηρα.");
+            System.out.println("No elevator could be assigned.");
         }
     } catch (Exception e) {
         System.out.println("Error while communicating with the system: " + e.getMessage());
