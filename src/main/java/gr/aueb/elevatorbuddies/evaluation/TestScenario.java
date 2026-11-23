@@ -43,9 +43,9 @@ public class TestScenario {
         if (originFloor == destinationFloor) {
             return;
         }
-        requests.add(new Request(originFloor, destinationFloor, delayNs));
-        
-        }
-
+        requests.add(new Request(originFloor, destinationFloor, delayMs));
     }
+
+    public String getName() {
+        return name;
     }
