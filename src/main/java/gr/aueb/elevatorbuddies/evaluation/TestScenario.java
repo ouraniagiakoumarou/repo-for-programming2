@@ -32,3 +32,14 @@ public class TestScenario {
     private final String name;
     private final String description;
     private final List<Request> requests;
+
+    public TestScenario(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.requests = new ArrayList<>();
+    }
+
+    public void addRequest(int originFloor, int destinationFloor, long delayMs) {
+        
+    }
+    }
