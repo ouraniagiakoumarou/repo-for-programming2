@@ -67,5 +67,8 @@ public class TestScenario {
         System.out.println("Description: " + description);
         System.out.println("Total requests: " + requests.size());
         for (int i = 0; i < requests.size(); i++) {
-            
+            Request r = requests.get(i);
+            System.out.println(" " + (i + 1) + ". " + r.getOriginFloor()
+            )
+
         }
