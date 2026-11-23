@@ -57,3 +57,12 @@ public class TestScenario {
     public List<Request> getRequests() {
         return Collections.unmodifiableList(requests);
     }
+     
+     public int getRequestCount() {
+        return requests.size();
+     }
+
+     public void printSummary() {
+        System.out.println("Scenario: " + name);
+     }
+     }
