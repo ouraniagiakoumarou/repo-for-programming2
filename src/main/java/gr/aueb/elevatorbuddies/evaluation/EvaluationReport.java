@@ -15,11 +15,11 @@ public class EvaluationReport {
     public String generateReport() {
         StringBuilder report = new StringBuilder();
         report.append("Evaluation Report for Scenario: ").append(scenarioName).append("\n");
-        report.append("Average Waiting Time: ").append(metrics.getAverageWaitingTime())).append("sec\n");
-        report.append("Average Travel Time: ").append(metrics.getAverageTravelTime())).append("sec\n");
+        report.append("Average Waiting Time: ").append(String.format("%.2f", metrics.getAverageWaitingTime()))).append("sec\n");
+        report.append("Average Travel Time: ").append(String.format("%.2f", metrics.getAverageTravelTime()))).append("sec\n");
         report.append("Reported Errors: ").append(metrics.getReportedErrors()).append("\n");
         report.append("Total Requests: ").append(metrics.getTotalRequests()).append("\n");
-        report.append("Success Percentage: ").append( metrics.getSuccessPercentage())).append("%\n");
+        report.append("Success Percentage: ").append(String.format("%.2f", metrics.getSuccessPercentage()))).append("%\n");
         report.append("Successful Requests: ").append(metrics.getSuccessfulRequests()).append("\n");
         report.append("Failed Requests: ").append(metrics.getFailedRequests()).append("\n");
         report.append(formatFailure());
