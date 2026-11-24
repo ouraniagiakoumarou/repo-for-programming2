@@ -32,7 +32,7 @@ public class EvaluationReport {
         StringBuilder report = new StringBuilder();
         int error = metrics.getFailedRequests();
         if (error == 0) {
-            report.append("There were no failed requests reported during the evaluation.\n");
+            report.append("No failed requests were reported during the evaluation.\n");
         } else {
             report.append("Failed requests count: ").append(metrics.getFailedRequests()).append("\n");
             report.append("Detailed errors: ").append(metrics.getReportedErrors()).append("\n");
@@ -52,17 +52,62 @@ public class EvaluationReport {
     }
     public static void compareReports(ArrayList<EvaluationReport> reports) {
         if (reports == null || reports.isEmpty()) {
-            System.out.println("No reports to compare.");
+System.out.println("No reports to compare.");
+return;
+}
+            ArrayList<EvaluationReport> validReports = new ArrayList<>();
+        for (EvaluationReport report : reports) {
+            if (report != null) {
+                validReports.add(report);
+            }
+        }
+        if (validReports.size() < 2) {
+            System.out.println("At least two valid reports are required for comparison.");
             return;
         }
-        System.out.println("Comparing Evaluation Reports:");
-        for (EvaluationReport report : reports) {
-            if (report == null) {
-                System.out.println("Encountered a null report. Skipping.");
-                continue;
-            }
+        System.out.println("\n========== EVALUATION REPORTS COMPARISON ==========");
+        for (EvaluationReport report : validReports) {
             System.out.println(report.generateReport());
-            System.out.println("-----------------------------");
+            System.out.println("-----------------------------------------------");
         }
+        EvaluationReport fastestWaiting = validReports.get(0);
+        EvaluationReport fastestTravel = validReports.get(0);
+        EvaluationReport highestSuccess = validReports.get(0);
+        EvaluationReport mostErrors = validReports.get(0);
+        EvaluationReport leastErrors = validReports.get(0);
+        for (EvaluationReport report : validReports) {
+            if (report.metrics.getAverageWaitingTime() < fastestWaiting.metrics.getAverageWaitingTime()) {
+                fastestWaiting = report;
+            }
+            if (report.metrics.getAverageTravelTime() < fastestTravel.metrics.getAverageTravelTime()) {
+                fastestTravel = report;
+            }
+            if (report.metrics.getSuccessPercentage() > highestSuccess.metrics.getSuccessPercentage()) {
+                highestSuccess = report;
+            }
+            if (report.metrics.getReportedErrors() > mostErrors.metrics.getReportedErrors()) {
+            mostErrors = report;
+            }
+            if (report.metrics.getReportedErrors() < leastErrors.metrics.getReportedErrors()) {
+                leastErrors = report;
+            }
+       }
+        System.out.println("\n============= COMPARISON RESULTS =============");
+        System.out.println("Lowest Average Waiting Time: "
+            + fastestWaiting.scenarioName
+            + " (" + String.format("%.2f", fastestWaiting.metrics.getAverageWaitingTime()) + " sec)");
+        System.out.println("Lowest Average Travel Time: "
+            + fastestTravel.scenarioName
+            + " (" + String.format("%.2f", fastestTravel.metrics.getAverageTravelTime()) + " sec)");
+        System.out.println("Highest Success Percentage: "
+            + highestSuccess.scenarioName
+            + " (" + String.format("%.2f", highestSuccess.metrics.getSuccessPercentage()) + "%)");
+        System.out.println("Most Reported Errors: "
+            + mostErrors.scenarioName
+            + " (" + mostErrors.metrics.getReportedErrors() + ")");
+        System.out.println("Least Reported Errors: "
+            + leastErrors.scenarioName
+            + " (" + leastErrors.metrics.getReportedErrors() + ")");
+        System.out.println("================================================");
     }
 }
