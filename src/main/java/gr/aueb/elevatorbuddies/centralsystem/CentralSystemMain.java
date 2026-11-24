@@ -33,6 +33,6 @@ public class CentralSystemMain {
 
         // 4. Start the REST server / request handling mechanism
         // controller.startServer();
-        System.out.println("Το Κνετρικό Σύστημα ξεκίνησε επιτυχώς και αναμένει αιτήματα.");
+        System.out.println("Central System started successfully and is awaiting requests.");
     }
 }
