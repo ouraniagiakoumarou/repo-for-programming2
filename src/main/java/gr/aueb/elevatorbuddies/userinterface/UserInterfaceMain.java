@@ -3,11 +3,13 @@ package gr.aueb.elevatorbuddies.userinterface;
 public class UserInterfaceMain {
 
     public static void main(String[] args) {
-    // 1. Check if arguments are provided
+        CentralSystemClient client = new CentralSystemClient();
+    // 1. Έλεγχος αν δόθηκε η παράμετρος από τη γραμμή εντολών 
     if (args.length == 0) {
-        System.err.println("Error: Please provide a starting floor as an argument.");
-        return;
-    }
+        System.err.println("Σφάλμα: Δεν δόθηκε όροφος εκκίνησης.");
+        
+    // 1. Check if arguments are provided
+    
     int  startFloor;
     // 2. Check if the value is a valid integer
     try {
@@ -24,8 +26,17 @@ public class UserInterfaceMain {
         System.err.println("Error: The starting floor must be between " + minFloor + " and " + maxFloor + ".");
         return;
     }
+    // 4. Αρχικοποίηση της ConsoleUI περνώντας τον έγκυρο όροφο εκκίνησης
+    ConsoleUI consoleUI = new ConsoleUI(
+        client,
+        startFloor,
+        minFloor,
+        maxFloor);
+    consoleUI.start(); // Ή όποια μέθοδος εκκίνησης διαθέτει η ConsoleUI σας
     System.out.println("User Interface started successfully with starting floor: " + startFloor);
+
     }
+}
 }
 
 

@@ -1,6 +1,6 @@
 package gr.aueb.elevatorbuddies.userinterface;
 
-import java.util.scanner;
+import java.util.Scanner;
 
 public class ConsoleUI {
 
@@ -9,7 +9,8 @@ public class ConsoleUI {
     private final int installationFloor;
     private final int minFloor;
     private final int maxFloor;
-
+    
+  
     public ConsoleUI(CentralSystemClient centralSystemClient,
     int installationFloor,
     int minFloor,
@@ -59,7 +60,7 @@ private void handleElevatorRequest() {
     }
 
     try {
-        String elevatorId = centralSystemClient.requestElevator(installattionFloor, destinationFloor);
+        String elevatorId = centralSystemClient.requestElevator(installationFloor, destinationFloor);
 
         if (elevatorId != null && !elevatorId.isBlank()) {
             System.out.println("Ανελκυστηρας που ανατεθηκε: " + elevatorId);
@@ -88,10 +89,11 @@ private int readFloor(String prompt) {
 private int readInt() {
     while (true) {
         String input = scanner.nextLine().trim();
-        try; {
+        try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             System.out.println("Δωστε εγκυρο ακεραιο αριθμο: ");
         }
     }
+}
 }
