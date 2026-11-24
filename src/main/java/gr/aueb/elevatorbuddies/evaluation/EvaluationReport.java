@@ -6,11 +6,14 @@ public class EvaluationReport {
     private String scenarioName;
     private PerformanceMetrics metrics;
     public EvaluationReport(String scenarioName, PerformanceMetrics metrics) {
-        this.metrics = metrics;
         if (scenarioName == null) {
             scenarioName = "Unknown Scenario";
         }
         this.scenarioName = scenarioName;
+        if (metrics == null) {
+            throw new IllegalArgumentException("PerformanceMetrics cannot be null");
+        }
+        this.metrics = metrics;
     }
     public String generateReport() {
         StringBuilder report = new StringBuilder();
@@ -29,7 +32,7 @@ public class EvaluationReport {
         StringBuilder report = new StringBuilder();
         int error = metrics.getFailedRequests();
         if (error == 0) {
-            report.append("There were no errors reported during the evaluation.\n");
+            report.append("There were no failed requests reported during the evaluation.\n");
         } else {
             report.append("Failed requests count: ").append(metrics.getFailedRequests()).append("\n");
             report.append("Detailed errors: ").append(metrics.getReportedErrors()).append("\n");
@@ -54,9 +57,12 @@ public class EvaluationReport {
         }
         System.out.println("Comparing Evaluation Reports:");
         for (EvaluationReport report : reports) {
+            if (report == null) {
+                System.out.println("Encountered a null report. Skipping.");
+                continue;
+            }
             System.out.println(report.generateReport());
             System.out.println("-----------------------------");
         }
     }
-
 }
