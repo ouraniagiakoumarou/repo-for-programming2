@@ -1,3 +1,4 @@
+package gr.aueb.elevatorbuddies.evaluation;
 public class PerformanceMetrics {
     private double averageWaitingTime;
     private double averageTravelTime;
