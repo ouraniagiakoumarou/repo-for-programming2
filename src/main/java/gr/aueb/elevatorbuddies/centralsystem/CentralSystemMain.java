@@ -1,4 +1,8 @@
 package gr.aueb.elevatorbuddies.centralsystem;
+import gr.aueb.elevatorbuddies.elevatorcontrol.Elevator;
+import com.sun.net.httpserver.HttpServer;
+import java.net.InetSocketAddress;
+import java.io.IOException;
 
 public class CentralSystemMain {
     public static void main(String[] args) {
@@ -9,7 +13,7 @@ public class CentralSystemMain {
         if (args.length >= 2) {
             try {
                 numberOfElevators = Integer.parseInt(args[0]);
-                totalFloors = Inetger.parseInt(args[1]);
+                totalFloors = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
                 System.err.println("Error: Parameters must be integer numbers.");
                 return;
@@ -23,6 +27,22 @@ public class CentralSystemMain {
         if (totalFloors < 3 || totalFloors > 200) {
             System.err.println("Error: The total number of floors must be between 3 and 200.");
             return;
+        }
+        try {
+            // lines 33-46 generated with AI
+            HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+            server.createContext("/api/central/request", exchange -> {
+                if (!exchange.getRequestMethod().equalsIgnoreCase("POST")) {
+                    exchange.sendResponseHeaders(405,-1);
+                    exchange.close();
+                    return;
+                }
+                System.out.println("Received request: ");
+            });
+            System.out.println("HTTP server started on port 8080");
+        } catch (IOException e) {
+            System.err.println("Error: Unable to start the HTTP server on port 8080.");
+            e.printStackTrace();
         }
         System.out.println("Starting Central System with " + numberOfElevators + " elevators and " + totalFloors + "floors...");
         // 3. Initialize core Central System classes

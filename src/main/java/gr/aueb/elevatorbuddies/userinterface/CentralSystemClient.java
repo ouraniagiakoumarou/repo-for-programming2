@@ -6,6 +6,7 @@ import java.net.http.HttpResponse;
 import java.io.IOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonParseException;
 public class CentralSystemClient {
     private final int minFloor;
     private final int maxFloor;
@@ -13,6 +14,15 @@ public class CentralSystemClient {
     private int destinationFloor;
     private final HttpClient httpClient;
     private final String centralSystemUrl; 
+    public CentralSystemClient(int minFloor, int maxFloor) {
+        if (minFloor>= maxFloor) {
+            throw new IllegalArgumentException("Minimum floor must be less than maximum floor.");
+        }
+        this.minFloor = minFloor;
+        this.maxFloor = maxFloor; 
+        this.centralSystemUrl = "http://localhost:8080/api/central/request";
+        this.httpClient = HttpClient.newHttpClient();  
+    }
     // sends an elevator request to the Central System
     public String requestElevator(int originFloor, int destinationFloor) {
         if (originFloor == destinationFloor) {
@@ -28,7 +38,6 @@ public class CentralSystemClient {
             .uri(URI.create(centralSystemUrl))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
-                
             .build();
             try {
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -37,36 +46,39 @@ public class CentralSystemClient {
                     return null;
                 }
                 String responseBody = response.body();
-                JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
-                String elevatorId = jsonResponse.get("elevatorId").getAsString();
-                System.out.println("Response from Central System: " + responseBody);
                 if (responseBody == null || responseBody.isBlank()) {
                     System.out.println("Error: Received empty response from Central System.");
                     return null;
                 }
+                System.out.println("Response from Central System: " + responseBody);
+                JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
+                if (!jsonResponse.has("elevatorId") || jsonResponse.get("elevatorId").isJsonNull()) {
+                    System.out.println("Error: Response from Central System does not contain 'elevatorId'.");
+                    return null;
+                }
+                String elevatorId = jsonResponse.get("elevatorId").getAsString();
+                
+                
                 return elevatorId;
              
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
+                System.out.println("Communication error: Unable to send request to Central System.");
                 e.printStackTrace();
                 return null;
             }
-        System.out.println("Request sent to Central System");
-        System.out.println("Origin Floor: " + originFloor);
-        System.out.println("Destination Floor: " + destinationFloor);
-        System.out.println("Elevator request processed successfully.");
-        return "A";
+            catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // Restore interrupted status
+                System.out.println("Communication error: Request to Central System was interrupted.");
+                e.printStackTrace();
+                return null;
+            } catch (JsonParseException e) {
+                System.out.println("Error: Failed to parse JSON response from Central System.");
+                e.printStackTrace();
+                return null;
+            }
     }
     private boolean isValidFloor(int floor) {
         return floor >= minFloor && floor <= maxFloor;
-    }
-    public CentralSystemClient(int minFloor, int maxFloor) {
-        if (minFloor>= maxFloor) {
-            throw new IllegalArgumentException("Minimum floor must be less than maximum floor.");
-        }
-        this.minFloor = minFloor;
-        this.maxFloor = maxFloor; 
-        this.centralSystemUrl = "http://localhost:8080/api/central/request";
-        this.httpClient = HttpClient.newHttpClient();  
     }
 }
 
